@@ -8,18 +8,32 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='2' width='13' height='13' rx='3' fill='%236aaa64'/%3E%3Crect x='17' y='2' width='13' height='13' rx='3' fill='%23c9b458'/%3E%3Crect x='2' y='17' width='13' height='13' rx='3' fill='%238b8f98'/%3E%3Crect x='17' y='17' width='13' height='13' rx='3' fill='%23dbe3ef'/%3E%3C/svg%3E">
 <style>
 :root{
-  --bg:#f4f6fb; --card:#ffffff; --text:#1f2430; --muted:#8a94a8;
+  --bg:#f4f6fb; --card:#ffffff; --panel:#ffffff; --chip-bg:#fafbfe; --tile-bg:#ffffff;
+  --row-active:#f0f7f0;
+  --text:#1f2430; --muted:#8a94a8;
+  --dashed:#ccd3e0;
   --border:#e7ebf2; --green:#6aaa64; --yellow:#c9b458; --gray:#8b8f98;
   --shadow:0 8px 30px rgba(23,32,64,.07);
+  --bg-gradients:
+    radial-gradient(1100px 480px at 15% -10%, #e6f3ea 0%, transparent 60%),
+    radial-gradient(900px 420px at 95% -15%, #e9eefb 0%, transparent 55%);
+}
+[data-theme="dark"]{
+  --dashed:#4a5170;
+  --bg:#10131b; --card:#1a1e2b; --panel:#232839; --chip-bg:#1f2433; --tile-bg:#232839;
+  --row-active:rgba(106,170,100,.12);
+  --text:#e8eaf2; --muted:#8b93a9;
+  --border:#2c3145; --gray:#6b7280;
+  --shadow:0 8px 30px rgba(0,0,0,.35);
+  --bg-gradients:
+    radial-gradient(1100px 480px at 15% -10%, rgba(106,170,100,.10) 0%, transparent 60%),
+    radial-gradient(900px 420px at 95% -15%, rgba(90,120,220,.10) 0%, transparent 55%);
 }
 *{box-sizing:border-box}
 html,body{margin:0}
 body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  background:
-    radial-gradient(1100px 480px at 15% -10%, #e6f3ea 0%, transparent 60%),
-    radial-gradient(900px 420px at 95% -15%, #e9eefb 0%, transparent 55%),
-    var(--bg);
+  background:var(--bg-gradients), var(--bg);
   color:var(--text); min-height:100vh;
 }
 .wrap{max-width:800px;margin:0 auto;padding:26px 16px 70px}
@@ -37,8 +51,8 @@ h1{font-size:22px;margin:0;letter-spacing:-.02em}
 .card-title{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
   color:var(--muted);margin-bottom:12px}
 .pills{display:flex;gap:10px;flex-wrap:wrap}
-.pill{width:46px;height:46px;border-radius:14px;border:1px solid var(--border);background:#fff;
-  color:#4a5568;font-size:17px;font-weight:700;cursor:pointer;transition:.15s;
+.pill{width:46px;height:46px;border-radius:14px;border:1px solid var(--border);background:var(--panel);
+  color:var(--text);font-size:17px;font-weight:700;cursor:pointer;transition:.15s;
   display:flex;align-items:center;justify-content:center;font-family:inherit}
 .pill:hover{border-color:#b6dcc0;transform:translateY(-1px)}
 .pill.active{background:linear-gradient(135deg,#79b878,#57a05c);color:#fff;border-color:transparent;
@@ -49,17 +63,17 @@ h1{font-size:22px;margin:0;letter-spacing:-.02em}
 .rowlabel.active{color:var(--green)}
 .tiles{display:flex;gap:6px;flex-wrap:wrap}
 .tile{width:clamp(32px,6.4vw,50px);height:clamp(32px,6.4vw,50px);
-  border:2px solid #d8dde8;border-radius:10px;display:flex;align-items:center;justify-content:center;
-  font-size:clamp(15px,3vw,23px);font-weight:800;text-transform:uppercase;background:#fff;color:var(--text);
+  border:2px solid var(--dashed);border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-size:clamp(15px,3vw,23px);font-weight:800;text-transform:uppercase;background:var(--tile-bg);color:var(--text);
   transition:background .15s,color .15s,border-color .15s;user-select:none}
 .tile.green{background:var(--green);border-color:var(--green);color:#fff}
 .tile.yellow{background:var(--yellow);border-color:var(--yellow);color:#fff}
 .tile.gray{background:var(--gray);border-color:var(--gray);color:#fff}
 .tile.small{width:clamp(24px,4.6vw,34px);height:clamp(24px,4.6vw,34px);
   font-size:clamp(11px,2.2vw,16px);border:none;border-radius:8px}
-.ccell{width:clamp(24px,4.6vw,34px);height:clamp(24px,4.6vw,34px);border:2px dashed #ccd3e0;
+.ccell{width:clamp(24px,4.6vw,34px);height:clamp(24px,4.6vw,34px);border:2px dashed var(--dashed);
   border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;
-  background:#fff;color:#fff;cursor:pointer;transition:.15s;user-select:none;text-transform:lowercase}
+  background:var(--panel);color:#fff;cursor:pointer;transition:.15s;user-select:none;text-transform:lowercase}
 .ccell:hover{border-color:#9fb3cd}
 .ccell.green{background:var(--green);border:2px solid var(--green)}
 .ccell.yellow{background:var(--yellow);border:2px solid var(--yellow)}
@@ -69,7 +83,7 @@ h1{font-size:22px;margin:0;letter-spacing:-.02em}
   font-size:15px;box-shadow:0 6px 16px rgba(90,160,94,.3);margin-left:auto}
 .btn-primary:hover{transform:translateY(-1px);filter:brightness(1.04)}
 .btn-primary:active{transform:translateY(0)}
-.btn-ghost{background:#fff;border:1px solid var(--border);color:#414c63;padding:9px 14px;font-size:13.5px}
+.btn-ghost{background:var(--panel);border:1px solid var(--border);color:var(--text);padding:9px 14px;font-size:13.5px}
 .btn-ghost:hover{border-color:#b9c4d8}
 .btn-ghost.small{padding:6px 12px;font-size:12.5px;border-radius:10px}
 .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
@@ -84,8 +98,10 @@ h1{font-size:22px;margin:0;letter-spacing:-.02em}
   padding:3px 11px;margin-left:8px}
 .hint{font-size:12.5px;color:var(--muted);margin:10px 0 12px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{display:inline-flex;align-items:baseline;gap:8px;background:#fafbfe;border:1px solid var(--border);
-  border-radius:10px;padding:7px 11px;transition:.12s}
+.chip{display:inline-flex;align-items:baseline;gap:8px;background:var(--chip-bg);border:1px solid var(--border);
+  border-radius:10px;padding:7px 11px;transition:border-color .12s;animation:chipIn .25s ease both;
+  cursor:pointer;user-select:none}
+.chip .best-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--green)}
 .chip b{font-weight:700;letter-spacing:.12em;font-size:14px}
 .chip small{color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums}
 .chip:hover{border-color:#b6dcc0}
@@ -106,10 +122,28 @@ kbd{background:#f0f2f7;border:1px solid var(--border);border-bottom-width:2px;bo
   padding:11px 18px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;
   box-shadow:0 10px 30px rgba(0,0,0,.25);z-index:50;max-width:88vw;text-align:center}
 #toast.show{opacity:1;transform:translate(-50%,0)}
+.submit-row{display:flex;margin-top:12px}
+.hdel{padding:2px 8px;margin-left:4px;flex:none}
+.rowblock{border-radius:12px;padding:6px 8px;margin:0 -8px 4px;transition:background .2s}
+.rowblock.active-row{background:var(--row-active)}
+#toggle-all .arr{display:inline-block;margin-left:5px;transition:transform .18s}
+#toggle-all.open .arr{transform:rotate(180deg)}
+#chips.scroll{max-height:320px;overflow-y:auto;padding-right:4px}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.18)}100%{transform:scale(1)}}
+@keyframes flip{0%{transform:rotateX(0)}50%{transform:rotateX(90deg)}100%{transform:rotateX(0)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+@keyframes chipIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.tile.pop{animation:pop .18s ease}
+.tile.flip,.ccell.flip{animation:flip .3s ease}
+.tiles.shake{animation:shake .4s}
+#theme-toggle{margin-left:auto;padding:9px 12px}
 @media (max-width:520px){
   .card{padding:16px;border-radius:16px}
   .rowlabel{display:none}
-  .btn-primary{margin-left:0}
+  .tiles{width:100%;flex-wrap:nowrap}
+  .tile{flex:1 1 0;width:auto;max-width:52px}
+  .ccell{flex:1 1 0;width:auto;height:44px;font-size:15px}
+  #submit{width:100%;padding:14px}
 }
 </style>
 </head>
@@ -121,6 +155,7 @@ kbd{background:#f0f2f7;border:1px solid var(--border);border-bottom-width:2px;bo
       <h1>Вордли-помощник</h1>
       <div class="sub">подбирает слова для wordle.belousov.one по цветам ваших попыток</div>
     </div>
+    <button class="btn btn-ghost" id="theme-toggle" aria-label="Переключить тему">🌙</button>
   </header>
 
   <section class="card">
@@ -134,11 +169,13 @@ kbd{background:#f0f2f7;border:1px solid var(--border);border-bottom-width:2px;bo
     <div class="rowblock">
       <div class="rowlabel" id="lbl-word">слово</div>
       <div class="tiles" id="word-row"></div>
-      <button class="btn btn-primary" id="submit">Ввод</button>
     </div>
     <div class="rowblock">
       <div class="rowlabel" id="lbl-color">цвета</div>
       <div class="tiles" id="color-row"></div>
+    </div>
+    <div class="submit-row">
+      <button class="btn btn-primary" id="submit">Ввод</button>
     </div>
     <div class="legend">
       Цвета: <b>з</b> — буква на своём месте, <b>ж</b> — есть в слове, но не здесь,
@@ -156,7 +193,7 @@ kbd{background:#f0f2f7;border:1px solid var(--border);border-bottom-width:2px;bo
   <section class="card">
     <div class="cands-head">
       <div class="card-title" style="display:flex;align-items:center">Кандидаты<span class="count" id="cand-count">0</span></div>
-      <button class="btn btn-ghost small" id="toggle-all" hidden>Показать все</button>
+      <button class="btn btn-ghost small" id="toggle-all" hidden>Показать все<span class="arr">▾</span></button>
     </div>
     <div class="hint" id="first-hint">Идеи для первого хода — самые частотные слова этой длины:</div>
     <div class="chips" id="chips"></div>
@@ -189,7 +226,7 @@ const DATA = {"4":[["день",118088],["люди",90224],["мама",82770],["�
 
 const CYR = /^[а-яё]$/;
 const COLOR_KEYS = {"з":"з","g":"з","ж":"ж","y":"ж","с":"с","b":"с","c":"с"};
-const COLOR_CYCLE = ["", "з", "ж", "с"];
+const COLOR_CYCLE = ["", "с", "ж", "з"];
 
 let length = 5;
 let attempts = [];
@@ -197,8 +234,24 @@ let word = [];
 let colors = [];
 let mode = "word";
 let showAll = false;
+let filtered = [];
 
 const $ = id => document.getElementById(id);
+
+function animate(cls, ...els){
+  els.forEach(el => {
+    if (!el) return;
+    el.classList.remove(cls);
+    void el.offsetWidth;
+    el.classList.add(cls);
+    el.addEventListener("animationend", () => el.classList.remove(cls), { once: true });
+  });
+}
+
+function recompute(){
+  const pool = DATA[String(length)] || [];
+  filtered = pool.filter(pair => consistent(pair[0], attempts));
+}
 
 function normChar(ch){ return ch.toLowerCase().replace("ё", "е"); }
 function firstEmpty(arr){ for (let i = 0; i < arr.length; i++) if (!arr[i]) return i; return -1; }
@@ -232,6 +285,7 @@ function cycleColor(i){
   const next = COLOR_CYCLE[(COLOR_CYCLE.indexOf(colors[i]) + 1) % COLOR_CYCLE.length];
   colors[i] = next;
   renderRows();
+  animate("flip", $("word-row").children[i], $("color-row").children[i]);
 }
 
 function renderRows(){
@@ -246,6 +300,8 @@ function renderRows(){
   }
   $("lbl-word").classList.toggle("active", mode === "word");
   $("lbl-color").classList.toggle("active", mode === "color");
+  $("lbl-word").parentElement.classList.toggle("active-row", mode === "word");
+  $("lbl-color").parentElement.classList.toggle("active-row", mode === "color");
 }
 
 function processChar(raw){
@@ -257,6 +313,7 @@ function processChar(raw){
     word[i] = ch;
     if (firstEmpty(word) === -1) mode = "color";
     renderRows();
+    animate("pop", $("word-row").children[i]);
   } else {
     processColorChar(raw);
   }
@@ -269,6 +326,7 @@ function processColorChar(raw){
   if (i === -1) return;
   colors[i] = k;
   renderRows();
+  animate("flip", $("word-row").children[i], $("color-row").children[i]);
 }
 
 function backspace(){
@@ -286,9 +344,11 @@ function backspace(){
 }
 
 function submit(){
-  if (firstEmpty(word) !== -1){ toast("Нужно слово из " + length + " букв"); return; }
-  if (firstEmpty(colors) !== -1){ toast("Укажите цвет каждой буквы: з / ж / с"); return; }
-  attempts.push({ word: word.join(""), colors: colors.join("") });
+  if (firstEmpty(word) !== -1){ toast("Нужно слово из " + length + " букв"); animate("shake", $("word-row")); return; }
+  if (firstEmpty(colors) !== -1){ toast("Укажите цвет каждой буквы: з / ж / с"); animate("shake", $("color-row")); return; }
+  const guess = { word: word.join(""), colors: colors.join("") };
+  attempts.push(guess);
+  filtered = filtered.filter(pair => consistent(pair[0], [guess]));
   word = Array(length).fill("");
   colors = Array(length).fill("");
   mode = "word";
@@ -298,6 +358,13 @@ function submit(){
 function undo(){
   if (!attempts.length){ toast("Попыток пока нет"); return; }
   attempts.pop();
+  recompute();
+  renderAll();
+}
+
+function removeAttempt(idx){
+  attempts.splice(idx, 1);
+  recompute();
   renderAll();
 }
 
@@ -306,6 +373,7 @@ function resetGame(){
   word = Array(length).fill("");
   colors = Array(length).fill("");
   mode = "word";
+  recompute();
   renderAll();
   toast("Попытки сброшены — новая партия");
 }
@@ -318,6 +386,7 @@ function setLength(n){
   mode = "word";
   showAll = false;
   buildRows();
+  recompute();
   renderAll();
 }
 
@@ -350,8 +419,7 @@ function consistent(w, guesses){
 }
 
 function candidates(){
-  const pool = DATA[String(length)] || [];
-  return pool.filter(pair => consistent(pair[0], attempts));
+  return filtered;
 }
 
 function renderHistory(){
@@ -370,6 +438,12 @@ function renderHistory(){
       t.textContent = a.word[i];
       row.appendChild(t);
     }
+    const del = document.createElement("button");
+    del.className = "btn btn-ghost small hdel";
+    del.textContent = "✕";
+    del.title = "Удалить эту попытку";
+    del.addEventListener("click", () => removeAttempt(idx));
+    row.appendChild(del);
     h.appendChild(row);
   });
 }
@@ -386,6 +460,7 @@ function renderCandidates(){
   list.slice(0, limit).forEach((pair, idx) => {
     const s = document.createElement("span");
     s.className = "chip" + (idx === 0 ? " best" : "");
+    s.style.animationDelay = Math.min(idx * 15, 300) + "ms";
     const b = document.createElement("b");
     b.textContent = pair[0];
     s.appendChild(b);
@@ -394,13 +469,30 @@ function renderCandidates(){
       sm.textContent = pair[1].toLocaleString("ru-RU");
       s.appendChild(sm);
     }
+    if (idx === 0 && attempts.length > 0){
+      const tag = document.createElement("span");
+      tag.className = "best-tag";
+      tag.textContent = "лучший ход";
+      s.appendChild(tag);
+    }
+    s.title = "Нажмите, чтобы вставить это слово";
+    s.addEventListener("click", () => {
+      word = pair[0].split("");
+      colors = Array(length).fill("");
+      mode = "color";
+      renderRows();
+      $("hidden-input").blur();
+      toast("Слово «" + pair[0] + "» вставлено — укажите цвета");
+    });
     frag.appendChild(s);
   });
   chips.appendChild(frag);
+  chips.classList.toggle("scroll", showAll);
   const btn = $("toggle-all");
   if (list.length > 30){
     btn.hidden = false;
-    btn.textContent = showAll ? "Свернуть" : "Показать все (" + list.length + ")";
+    btn.classList.toggle("open", showAll);
+    btn.innerHTML = (showAll ? "Свернуть" : "Показать все (" + list.length + ")") + '<span class="arr">▾</span>';
   } else {
     btn.hidden = true;
   }
@@ -419,12 +511,29 @@ function renderPills(){
   }
 }
 
+const LS_KEY = "wordle-helper-state";
+function saveState(){
+  try { localStorage.setItem(LS_KEY, JSON.stringify({ length, attempts })); } catch (e) {}
+}
+function loadState(){
+  try {
+    const s = JSON.parse(localStorage.getItem(LS_KEY));
+    if (s && DATA[String(s.length)] && Array.isArray(s.attempts) &&
+        s.attempts.every(a => typeof a.word === "string" && typeof a.colors === "string" &&
+                             a.word.length === s.length && a.colors.length === s.length)){
+      return s;
+    }
+  } catch (e) {}
+  return null;
+}
+
 function renderAll(){
   renderPills();
   renderRows();
   renderHistory();
   renderCandidates();
   $("info").textContent = "Длина: " + length + " букв · попыток: " + attempts.length;
+  saveState();
 }
 
 document.addEventListener("keydown", e => {
@@ -454,7 +563,32 @@ $("undo").addEventListener("click", undo);
 $("reset").addEventListener("click", resetGame);
 $("toggle-all").addEventListener("click", () => { showAll = !showAll; renderCandidates(); });
 
-setLength(5);
+const themeBtn = $("theme-toggle");
+const themeMeta = document.querySelector('meta[name="color-scheme"]');
+function applyTheme(t){
+  document.documentElement.dataset.theme = t;
+  themeBtn.textContent = t === "dark" ? "☀️" : "🌙";
+  if (themeMeta) themeMeta.content = t;
+  try { localStorage.setItem("wordle-theme", t); } catch (e) {}
+}
+let initialTheme = "light";
+try { initialTheme = localStorage.getItem("wordle-theme") || ""; } catch (e) {}
+if (!initialTheme && window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches){
+  initialTheme = "dark";
+}
+applyTheme(initialTheme === "dark" ? "dark" : "light");
+themeBtn.addEventListener("click", () =>
+  applyTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark"));
+
+const saved = loadState();
+if (saved){
+  setLength(saved.length);
+  attempts = saved.attempts;
+  recompute();
+  renderAll();
+} else {
+  setLength(5);
+}
 </script>
 </body>
 </html>
